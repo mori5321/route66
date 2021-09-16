@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["types", "node_modules/@types"],
+    "sourceMap": true,
+    "target": "ES5",
+    "module": "CommonJS",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "lib": ["es2020", "dom"],
+    "baseUrl": "./",
+    "outDir": "./build",
+    "paths": {
+      "@": ["./src"],
+      "@/*": ["./src/*"]
+    },
+    "esModuleInterop": true,
+    "allowJs": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": ["node_modules", ".eslintrc.js"]
+}
