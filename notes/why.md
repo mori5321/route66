@@ -26,7 +26,7 @@ const UserPage = () => {
 ## Pattern1: react-typesafe-routes 風
 ref: https://github.com/innFactory/react-typesafe-routes
 ``` samp.tsx 
-const routes = TypeRoutes(route => ({
+const routes = Route66.createRoutes(route => ({
   home: route('/', { component: HomePage }),
   users: route('/users', route => ({
     list: route('/', { component: UserListPage }),
@@ -35,8 +35,8 @@ const routes = TypeRoutes(route => ({
 }));
 
 // あるいは
-const routes = TypeRoutes(route => {
-  users: nest('/users', route => ({
+const routes = Route66.createRoutes({ route, nest } => {
+  users: nest('/users', { route } => ({
     list: route('/', () => <UserListPage />),
     get: route('/:id', ({ id }) => <UserGetPage id={id} />)
   }))

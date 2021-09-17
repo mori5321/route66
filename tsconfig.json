@@ -9,6 +9,7 @@
     "lib": ["es2020", "dom"],
     "baseUrl": "./",
     "outDir": "./build",
+    "declaration": true,
     "paths": {
       "@": ["./src"],
       "@/*": ["./src/*"]
