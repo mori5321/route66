@@ -33,11 +33,13 @@
 
 ``` samp.ts
 const routes = createRoutes({ route, nest } => {
-  home: route("/home"),
-  users: nest("/users", ({ route, nest }) => {
-    list: route("/"),
-    get: route("/:id")
-  }),
+  return {
+    home: route("/home"),
+    users: nest("/users", ({ route, nest }) => {
+      list: route("/"),
+      get: route("/:id")
+    }),
+  }
 })
 
 
