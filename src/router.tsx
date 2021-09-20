@@ -1,12 +1,11 @@
-import * as React from "react";
-import { locationToRoute } from "./utils";
-import { history, RouterContext } from "./context";
-import { Route, RouteProps } from "./route";
-import { Link } from "./link";
-import { Location } from "history";
+import * as React from 'react';
+import { history, RouterContext } from './context';
+import { RouteProps } from './components/Route';
+import { Location } from 'history';
+import { locationToRoute } from './utils';
 
 type Routes = {
-  [key: string]: Pick<RouteProps, "path">;
+  [key: string]: Pick<RouteProps, 'path'>;
 };
 
 type Props = {
@@ -16,13 +15,9 @@ type Props = {
 const Router = ({ routes: routes, children }: Props) => {
   const paths: string[] = Object.keys(routes).map((key) => routes[key].path);
 
-  console.log("Paths", paths);
-
   const [currentRoute, setCurrentRoute] = React.useState(
     locationToRoute(history.location)
   );
-
-  console.log("CurrentRoute", currentRoute);
 
   React.useEffect(() => {
     const unlisten = history.listen((update) =>
@@ -36,10 +31,10 @@ const Router = ({ routes: routes, children }: Props) => {
     setCurrentRoute(route);
   };
 
-  const routerContextValue = { route: currentRoute };
+  const routerContextValue = { currentRoute: currentRoute };
 
   const is404 = paths.indexOf(currentRoute.path) === -1;
-  console.log("Is404", is404);
+  console.log('Is404', is404);
 
   return (
     <RouterContext.Provider value={routerContextValue}>
@@ -48,4 +43,4 @@ const Router = ({ routes: routes, children }: Props) => {
   );
 };
 
-export { history, RouterContext, Router, Routes, Route, Link };
+export { Router, Routes };

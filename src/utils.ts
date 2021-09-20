@@ -1,13 +1,13 @@
 import qs from 'querystringify';
 import { Location } from 'history';
 
-type Route = {
+type RouteInfo = {
   path: string;
   hash: string;
-  query: Object;
+  query: object;
 };
 
-const locationToRoute = (location: Location) => {
+const locationToRoute = (location: Location): RouteInfo => {
   return {
     path: location.pathname,
     hash: location.hash,
@@ -15,4 +15,4 @@ const locationToRoute = (location: Location) => {
   };
 };
 
-export { Route, locationToRoute };
+export { RouteInfo, locationToRoute };

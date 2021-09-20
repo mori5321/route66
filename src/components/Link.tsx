@@ -1,18 +1,18 @@
-import * as React from "react";
-import { RouterContext, history } from "./context";
+import * as React from 'react';
+import { RouterContext, history } from '../context';
 
 type LinkProps = {
   to: string;
   onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   children: React.ReactElement;
-} & JSX.IntrinsicElements["a"];
+} & JSX.IntrinsicElements['a'];
 const Link = ({ to, onClick, children, ...restProps }: LinkProps) => {
-  const { route } = React.useContext(RouterContext);
+  const { currentRoute } = React.useContext(RouterContext);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
-    if (route.path === to) {
+    if (currentRoute.path === to) {
       return;
     }
 

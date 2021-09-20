@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { RouterContext } from './context';
+import { RouterContext } from '../context';
 
 export type RouteProps = { path: string; children: React.ReactElement };
 const Route = ({ path, children }: RouteProps) => {
-  const { route } = React.useContext(RouterContext);
+  const { currentRoute } = React.useContext(RouterContext);
 
-  if (route.path !== path) {
+  if (currentRoute.path !== path) {
     return null;
   }
 
