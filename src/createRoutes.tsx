@@ -1,24 +1,26 @@
-// import {Routes} from './router';
-
 type Route = {
   path: string;
 };
 
-type Routes = {
-  [key: string]: Route | Routes;
-};
-
 type RouteFunc = (path: string) => Route;
-type NestFunc = (path: string, callback: Callback) => Routes;
+type NestFunc = <R extends Object>(
+  path: string,
+  callback: Callback<R>
+) => ReturnType<Callback<R>>;
 
-type Callback = (callbackArgs: { route: RouteFunc; nest: NestFunc }) => Routes;
-type CreateRoutes = (callback: Callback) => Routes;
+type Callback<R extends Object> = (callbackArgs: {
+  route: RouteFunc;
+  nest: NestFunc;
+}) => R;
 
-const createRoutes: CreateRoutes = (callback) => {
+const createRoutes = <R extends Object>(callback: Callback<R>) => {
   return _createRoutes(callback, '');
 };
 
-const _createRoutes = (callback: Callback, basePath: string) => {
+const _createRoutes = <R extends Object>(
+  callback: Callback<R>,
+  basePath: string
+) => {
   const route: RouteFunc = (path): Route => {
     if (basePath.length > 0) {
       return {
@@ -31,7 +33,7 @@ const _createRoutes = (callback: Callback, basePath: string) => {
     };
   };
 
-  const nest: NestFunc = (path, callback): Routes => {
+  const nest: NestFunc = (path, callback) => {
     return _createRoutes(callback, path);
   };
 
@@ -41,15 +43,15 @@ const _createRoutes = (callback: Callback, basePath: string) => {
 const routes = createRoutes(({ route, nest }) => {
   return {
     home: route('/home'),
-    users: nest('/users', ({ route }) => {
-      return {
-        list: route('/'),
-      };
-    }),
+    users: nest('/users', ({ route, nest }) => ({
+      list: route('/'),
+      me: nest('/me', ({ route }) => ({
+        hello: route('/hello'),
+      })),
+    })),
   };
 });
 
-// FIXME: routes.users.home みたいな型推論ができない
-console.log('Routes', routes);
+console.log('Routes', routes.users.me.hello.path);
 
 export { createRoutes };
